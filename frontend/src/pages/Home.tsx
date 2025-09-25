@@ -6,7 +6,7 @@ import {aboutUs,whyChooseUs,welcomeText} from '../constants/homePageData'
 
 const Home = () => {
     return (
-        <main className="  px-4 sm:px-6 md:px-12 lg:px-48 py-8 bg-[linear-gradient(150deg,#FFFFFF_0%,#E0F7FA_12%,#B2EBF2_88%,#FFFFFF_100%)]">
+        <main className="  px-4 sm:px-6 md:px-12 lg:px-48 py-8 bg-[linear-gradient(150deg,#FFFFFF_0%,#E0F7FA_26%,#B2EBF2_72%,#FFFFFF_100%)]">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="py-8 lg:py-48 px-5 lg:px-12">
                     <Headings text={"\"A Healthier Tomorrow Starts Here\""} />
