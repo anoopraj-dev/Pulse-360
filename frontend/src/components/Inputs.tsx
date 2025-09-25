@@ -7,7 +7,7 @@ interface InputProps{
 
 const Inputs = ({placeholder,className,type}:InputProps) => {
     return (
-        <input placeholder={placeholder} type={type} className={`p-4 border border-[#75CAFF] rounded-md my-1 ${className}`}/>
+        <input placeholder={placeholder} type={type} className={`p-4 border border-opacity-20 border-[rgba(117,202,255,0.5)] rounded-md my-1 ${className}`}/>
     )
 }
 
