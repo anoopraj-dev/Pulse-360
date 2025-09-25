@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="bg-white  fixed w-full">
@@ -8,11 +9,17 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <ul className="flex space-x-6">
+            <Link to ='/'>
+          
             <li className="hover:text-[#0096C7] cursor-pointer">Home</li>
+              </Link>
             <li className="hover:text-[#0096C7] cursor-pointer">About Us</li>
             <li className="hover:text-[#0096C7] cursor-pointer">Services</li>
             <li className="hover:text-[#0096C7] cursor-pointer">Find a doctor</li>
-            <li className="hover:text-[#0096C7] cursor-pointer">Login</li>
+            <Link to='/signin'>
+               <li className="hover:text-[#0096C7] cursor-pointer">Login</li>
+            </Link>
+           
             <li className="hover:text-[#0096C7] cursor-pointer">Admin</li>
           </ul>
         </div>

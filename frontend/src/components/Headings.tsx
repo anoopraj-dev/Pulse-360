@@ -1,5 +1,6 @@
 interface HeadingsProps{
-    text: string
+    text: string;
+    className?: string;
 }
 
 const Headings = ({text}:HeadingsProps) => {
