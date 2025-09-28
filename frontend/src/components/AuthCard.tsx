@@ -3,15 +3,44 @@ import Headings from "./Headings";
 import Inputs from "./Inputs";
 import PrimaryButton from "./PrimaryButton";
 import SliderToggle from "./SliderToggle";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { api } from "../api/api";
 
 
 
 const AuthCard = () => {
     const [isDoctor, setIsDoctor] = useState(false)
     const location = useLocation();
+    const navigate = useNavigate();
+    const [name,setName]=useState('');
+    const [email,setEmail]=useState('');
+    const [password,setPassword] = useState('');
+    const [confirmPassword,setConfrimPassword] = useState('')
 
     const isSignup = location.pathname === '/signup';
+
+    const handleSignup = async () => {
+        try{
+            const role = isDoctor ? 'doctor' : 'patient';
+            const {data} = await api.post('/api/auth/signup',{
+                name,
+                email,
+                password,
+                confirmPassword,
+                role
+            });
+
+            if(!data.success){
+                alert(data.message);
+            }else{
+                alert(`${role} registered succesfully!`);
+                navigate('/signup')
+            }
+        }catch(error:any){
+            console.error(error);
+            alert(error.response?.data?.message || ` signup failed`)
+        }
+    }
 
 
     return (
@@ -30,14 +59,14 @@ const AuthCard = () => {
                 </div>
                 {
                     isSignup && (
-                        <Inputs placeholder="Name" className="w-full" />
+                        <Inputs placeholder="Name" className="w-full" value={name} onChange={(e)=>setName(e.target.value)}/>
                     )
                 }
-                <Inputs placeholder='Email' type="email" className="w-full" />
-                <Inputs placeholder='Password' type="password" className="w-full" />
+                <Inputs placeholder='Email' type="email" className="w-full" value={email} onChange={(e)=>setEmail(e.target.value)} />
+                <Inputs placeholder='Password' type="password" className="w-full" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 {
                     isSignup && (
-                        <Inputs placeholder="Confirm Password" className="w-full" />
+                        <Inputs placeholder="Confirm Password" className="w-full" value={confirmPassword} onChange={(e)=>setConfrimPassword(e.target.value)} />
                     )
                 }
 
@@ -52,7 +81,7 @@ const AuthCard = () => {
                 }
 
 
-                <PrimaryButton text={isSignup ? 'SIGN UP' : 'SIGN IN'} className="w-full mt-2" />
+                <PrimaryButton text={isSignup ? 'SIGN UP' : 'SIGN IN'} className="w-full mt-2" onClick={handleSignup} />
                 {
                     isSignup ? <></> : <PrimaryButton text='SIGNIN WITH GOOGLE' className="w-full bg-[#BD2F2F] mt-2" />
                 }
