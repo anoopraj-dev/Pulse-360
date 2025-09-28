@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 const mongoURI = process.env.DB_URL;
 
-const connectDB = async (): Promise<void> => {
+export const connectDB = async (): Promise<void> => {
   if (!mongoURI) {
     throw new Error('MongoDB URL is missing in environment variables');
   }
@@ -25,4 +25,10 @@ const connectDB = async (): Promise<void> => {
   
 };
 
-export default connectDB;
+export const disconnectDB = async (): Promise<void> => {
+    try {
+        await mongoose.connection.close();
+    } catch (error) {
+        console.error('Error disconnecting MongoDB',error)
+    }
+}
