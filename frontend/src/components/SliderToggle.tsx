@@ -5,6 +5,7 @@ interface SliderToggleProps {
 }
 
 const SliderToggle = ({ isChecked, onToggle }: SliderToggleProps) => {
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onToggle(e.target.checked);
   };
