@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IPatient extends Document {
     name: string;
+    patientId: string;
     gender: "male" | "female" | "other";
     dob: Date;
     email: string;
@@ -17,48 +18,55 @@ export interface IPatient extends Document {
 
 const PatientSchema = new Schema<IPatient>(
     {
-        name: { 
-            type: String, 
-            required: true 
+        name: {
+            type: String,
+            required: true
         },
-        gender: { 
-            type: String, 
-            enum: ["male", "female", "other"], 
+
+        patientId: {
+            type: String,
+            required: true,
+            unique: true
+        },
+
+        gender: {
+            type: String,
+            enum: ["male", "female", "other"],
         },
         dob: Date,
-        email: { 
-            type: String, 
-            unique: true, 
-            required: true 
+        email: {
+            type: String,
+            unique: true,
+            required: true
         },
-        phone: { 
-            type: String, 
+        phone: {
+            type: String,
         },
-        password: { 
-            type: String, 
-            required: true 
+        password: {
+            type: String,
+            required: true
         },
         address: {
-            type:String
+            type: String
         },
         profile_pic: {
             type: String
         },
-        medical_history: [{ 
-            type: Schema.Types.ObjectId, 
-            ref: "TreatmentReport" 
+        medical_history: [{
+            type: Schema.Types.ObjectId,
+            ref: "TreatmentReport"
         }],
-        status: { 
-            type: String, 
-            enum: ["active", "blocked"], 
-            default: "active" 
+        status: {
+            type: String,
+            enum: ["active", "blocked"],
+            default: "active"
         },
         role: {
             type: String,
             required: true
         }
     },
-    { timestamps: true }
+    { collection: 'patients', timestamps: true }
 );
 
 const Patient = mongoose.model<IPatient>("Patient", PatientSchema);

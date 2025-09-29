@@ -8,4 +8,5 @@ app.use(cors());
 
 app.use('/api/auth',patientRoutes)
 
+
 export default app;
