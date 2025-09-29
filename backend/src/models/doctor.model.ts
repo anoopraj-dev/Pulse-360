@@ -19,6 +19,7 @@ export interface IDoctor extends Document {
     services: ('online' |'offline')[];
     status:'approved'|'pending'|'rejected'|'blocked';
     role: string;
+    isVerified: boolean;
 }
 
 const DoctorSchema = new Schema<IDoctor>({
@@ -85,6 +86,10 @@ const DoctorSchema = new Schema<IDoctor>({
     role:{
         type: String,
         required: true
+    },
+    isVerified:{
+        type: Boolean,
+        default: false
     }
 },{collection:'doctors',timestamps: true});
 

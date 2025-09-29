@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import SignIn from "./pages/SignIn"
 import Signup from "./pages/Signup"
+import VerifyEmail from "./pages/VerifyEmail"
 
 const App = () =>{
 
@@ -18,6 +19,7 @@ const App = () =>{
           <Route path="/" element = {<Home/>} />
           <Route path="/signin" element= {<SignIn/>} />
           <Route path="/signup" element= {<Signup/>} />
+          <Route path= "/verify-email" element={<VerifyEmail/>} />
         </Routes>
       </div>
       <div>

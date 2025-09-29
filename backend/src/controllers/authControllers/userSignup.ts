@@ -3,10 +3,13 @@ import type { Request, Response } from "express";
 import Patient from '../../models/patient.model.js';
 import Doctor from '../../models/doctor.model.js'
 import bcrypt from 'bcryptjs';
+import { generateOtp } from "../../utils/otpGenerator.js";
+import Otp from "../../models/otps.model.js";
+import { sendEmail } from "../../config/nodemailer.js";
 
 export const userSignup = async (req: Request, res: Response) => {
     try {
-        const { name, email, password, confirmPassword, role } = req.body;
+        const { name, email, password, confirmPassword, role,isVerified } = req.body;
 
         //check if user already exists
         const existingPatient = await Patient.findOne({ email });
@@ -29,7 +32,7 @@ export const userSignup = async (req: Request, res: Response) => {
         //Encrypt password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        //create new patient
+        //create new user
         if (role === 'patient') {
 
             const newPatient = new Patient({
@@ -37,7 +40,8 @@ export const userSignup = async (req: Request, res: Response) => {
                 name,
                 email,
                 password: hashedPassword,
-                role
+                role,
+                isVerified
             })
 
             await newPatient.save();
@@ -54,10 +58,30 @@ export const userSignup = async (req: Request, res: Response) => {
         }
 
 
+        //generate otp
+        const otpCode = generateOtp();
+
+        await Otp.create({
+            email,
+            otp: otpCode,
+            expiresAt: new Date(Date.now() + 2*60*1000)
+        })
+
+
+        //Email options
+
+        const mailOptions = {
+            from: '"PULSE360" <no-reply@pulse360.com>',
+            to:email,
+            subject:'Email verification',
+            text: `Your one time password is ${otpCode}`
+        }
+
+        await sendEmail(mailOptions);
 
         return res.status(201).json({
             success: true,
-            message: `${role} registered successfully!`
+            message: `${role} registered successfully! Verify your email with otp sent to your email`
         })
     } catch (error: any) {
         console.error(error)
