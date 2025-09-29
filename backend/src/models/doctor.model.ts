@@ -37,8 +37,8 @@ const DoctorSchema = new Schema<IDoctor>({
     },
     gender: {
         type: String,
-        enum: ['male','female','other'],
-        required: true
+        enum: ['male','female','other']
+
     },
     dob: {
         type: Date
@@ -55,10 +55,6 @@ const DoctorSchema = new Schema<IDoctor>({
         type: String,
     },
     password: {
-        type: String,
-        required: true
-    },
-    confirmPassword: {
         type: String,
         required: true
     },
@@ -90,7 +86,7 @@ const DoctorSchema = new Schema<IDoctor>({
         type: String,
         required: true
     }
-},{timestamps: true});
+},{collection:'doctors',timestamps: true});
 
 const Doctor = mongoose.model<IDoctor>('Doctor',DoctorSchema);
 

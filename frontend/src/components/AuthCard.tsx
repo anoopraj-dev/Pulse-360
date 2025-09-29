@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import Headings from "./Headings";
 import Inputs from "./Inputs";
 import PrimaryButton from "./PrimaryButton";
@@ -17,12 +17,13 @@ const AuthCard = () => {
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfrimPassword] = useState('')
 
-    const isSignup = location.pathname === '/signup';
+    const isSignup = location.pathname==='/signup';
+
 
     const handleSignup = async () => {
         try{
             const role = isDoctor ? 'doctor' : 'patient';
-            const {data} = await api.post('/api/auth/signup',{
+            const {data} = await api.post('/api/auth/signup/',{
                 name,
                 email,
                 password,
@@ -34,7 +35,7 @@ const AuthCard = () => {
                 alert(data.message);
             }else{
                 alert(`${role} registered succesfully!`);
-                navigate('/signup')
+                navigate('/signin')
             }
         }catch(error:any){
             console.error(error);
