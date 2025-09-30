@@ -5,11 +5,12 @@ import nodemailer from 'nodemailer'
 
 //create transporter
 const transporter: Transporter = nodemailer.createTransport({
-  host: "live.smtp.mailtrap.io",
+  service: "gmail",
   port: 587,
+  secure: false,
   auth: {
-    user: "api",
-    pass: process.env.PASS
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS
   }
 });
 
