@@ -13,7 +13,8 @@ export interface IPatient extends Document {
     profile_pic?: string;
     medical_history: mongoose.Types.ObjectId[];
     status: "active" | "blocked";
-    role: string
+    role: string,
+    isVerified:boolean
 }
 
 const PatientSchema = new Schema<IPatient>(
@@ -64,6 +65,10 @@ const PatientSchema = new Schema<IPatient>(
         role: {
             type: String,
             required: true
+        },
+        isVerified: {
+            type: Boolean,
+            default: false
         }
     },
     { collection: 'patients', timestamps: true }
