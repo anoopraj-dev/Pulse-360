@@ -1,12 +1,14 @@
 import express from 'express';
-import patientRoutes from './routes/patientRoutes.js';
+import userRoutes from './routes/user.Routes.js';
 import cors from 'cors'
 const app = express();
 
+//middlewares
 app.use(express.json())
 app.use(cors());
 
-app.use('/api/auth',patientRoutes)
+//routes
+app.use('/api/auth',userRoutes)
 
 
 export default app;

@@ -69,11 +69,11 @@ export const userSignup = async (req: Request, res: Response) => {
 
         //Email options
         const mailOptions = {
-            from: '"PULSE360" <${process.env.GMAIL_USER}>',
+            from: `"PULSE360" <${process.env.GMAIL_USER}>`,
             to: email,
             subject: 'Email verification',
             text: `Hello ${name}, 
-                    verify your email with one time password  ${otpCode}`
+                    verify your email with this one time password  ${otpCode}`
         }
 
         try {

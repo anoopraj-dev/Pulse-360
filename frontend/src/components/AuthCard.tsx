@@ -39,7 +39,7 @@ const AuthCard = () => {
             }else{
                 openModal(data.message)
                 console.log('succes')
-                navigate('/verify-email')
+                navigate('/verify-email',{state:{email:email}})
             }
         }catch(error:any){
             const message = 
@@ -72,7 +72,7 @@ const AuthCard = () => {
                 <Inputs placeholder='Password' type="password" className="w-full" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 {
                     isSignup && (
-                        <Inputs placeholder="Confirm Password" className="w-full" value={confirmPassword} onChange={(e)=>setConfrimPassword(e.target.value)} />
+                        <Inputs placeholder="Confirm Password" type='password' className="w-full" value={confirmPassword} onChange={(e)=>setConfrimPassword(e.target.value)} />
                     )
                 }
 
