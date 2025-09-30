@@ -5,6 +5,7 @@ import PrimaryButton from "./PrimaryButton";
 import SliderToggle from "./SliderToggle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
+import { useModal } from "../contexts/ModalContext";
 
 
 
@@ -15,10 +16,10 @@ const AuthCard = () => {
     const [name,setName]=useState('');
     const [email,setEmail]=useState('');
     const [password,setPassword] = useState('');
-    const [confirmPassword,setConfrimPassword] = useState('')
+    const [confirmPassword,setConfrimPassword] = useState('');
 
     const isSignup = location.pathname==='/signup';
-
+    const {openModal} = useModal();
 
     const handleSignup = async () => {
         try{
@@ -32,14 +33,18 @@ const AuthCard = () => {
             });
 
             if(!data.success){
-                alert(data.message);
+                openModal(data.message)
+                console.log('first error')
+                
             }else{
-                alert(`${role} registered succesfully!`);
-                navigate('/signin')
+                openModal(data.message)
+                console.log('succes')
+                navigate('/verify-email')
             }
         }catch(error:any){
-            console.error(error);
-            alert(error.response?.data?.message || ` signup failed`)
+            const message = 
+            error?.response?.data?.message || error?.message || 'Something went wrong';
+            openModal(message)
         }
     }
 

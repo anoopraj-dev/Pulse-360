@@ -1,4 +1,5 @@
-
+import dotenv from 'dotenv'
+dotenv.config();
 import type { Request, Response } from "express";
 import Patient from '../../models/patient.model.js';
 import Doctor from '../../models/doctor.model.js'
@@ -9,7 +10,7 @@ import { sendEmail } from "../../config/nodemailer.js";
 
 export const userSignup = async (req: Request, res: Response) => {
     try {
-        const { name, email, password, confirmPassword, role,isVerified } = req.body;
+        const { name, email, password, confirmPassword, role, isVerified } = req.body;
 
         //check if user already exists
         const existingPatient = await Patient.findOne({ email });
@@ -57,27 +58,36 @@ export const userSignup = async (req: Request, res: Response) => {
             await newDoctor.save();
         }
 
-
         //generate otp
         const otpCode = generateOtp();
-
         await Otp.create({
             email,
             otp: otpCode,
-            expiresAt: new Date(Date.now() + 2*60*1000)
+            expiresAt: new Date(Date.now() + 2 * 60 * 1000)
         })
 
 
         //Email options
-
         const mailOptions = {
-            from: '"PULSE360" <no-reply@pulse360.com>',
-            to:email,
-            subject:'Email verification',
-            text: `Your one time password is ${otpCode}`
+            from: '"PULSE360" <${process.env.GMAIL_USER}>',
+            to: email,
+            subject: 'Email verification',
+            text: `Hello ${name}, 
+                    verify your email with one time password  ${otpCode}`
         }
 
-        await sendEmail(mailOptions);
+        try {
+            await sendEmail(mailOptions);
+
+        } catch (error) {
+
+            console.log(error);
+            return res.status(500).json({
+                success: false,
+                message: 'Error sending OTP, try resending the email'
+            })
+
+        }
 
         return res.status(201).json({
             success: true,
