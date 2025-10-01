@@ -8,7 +8,6 @@ import { api } from "../api/api";
 import { useModal } from "../contexts/ModalContext";
 
 
-
 const AuthCard = () => {
     const [isDoctor, setIsDoctor] = useState(false)
     const location = useLocation();
@@ -17,14 +16,13 @@ const AuthCard = () => {
     const [email,setEmail]=useState('');
     const [password,setPassword] = useState('');
     const [confirmPassword,setConfrimPassword] = useState('');
-
     const isSignup = location.pathname==='/signup';
     const {openModal} = useModal();
 
     const handleSignup = async () => {
         try{
             const role = isDoctor ? 'doctor' : 'patient';
-            const {data} = await api.post('/api/auth/signup/',{
+            const {data} = await api.post('/api/auth/signup',{
                 name,
                 email,
                 password,
@@ -42,6 +40,32 @@ const AuthCard = () => {
                 navigate('/verify-email',{state:{email:email}})
             }
         }catch(error:any){
+            const message = 
+            error?.response?.data?.message || error?.message || 'Something went wrong';
+            openModal(message)
+        }
+    }
+
+    const handleSignin = async() => {
+        try {
+            const role = isDoctor? 'doctor' : 'patient';
+            const {data} = await api.post('/api/auth/signin',{
+                email,
+                password,
+                role
+            });
+
+            if(!data.success) {
+                console.log(data.message);
+                openModal(data.message);
+            }else{
+                console.log(data.message);
+                openModal(data.message);
+                navigate('/patient/profile');
+            }
+
+
+        } catch (error:any) {
             const message = 
             error?.response?.data?.message || error?.message || 'Something went wrong';
             openModal(message)
@@ -87,7 +111,7 @@ const AuthCard = () => {
                 }
 
 
-                <PrimaryButton text={isSignup ? 'SIGN UP' : 'SIGN IN'} className="w-full mt-2" onClick={handleSignup} />
+                <PrimaryButton text={isSignup ? 'SIGN UP' : 'SIGN IN'} className="w-full mt-2" onClick={isSignup? handleSignup : handleSignin} />
                 {
                     isSignup ? <></> : <PrimaryButton text='SIGNIN WITH GOOGLE' className="w-full bg-[#BD2F2F] mt-2" />
                 }
