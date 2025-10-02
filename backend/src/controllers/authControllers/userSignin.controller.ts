@@ -38,7 +38,7 @@ export const userSignin = async (req: Request, res: Response) => {
         //create JWT payload
 
         let payload;
-        if(role==='doctor'){
+        if(role==='doctor'){ 
             payload ={
                 id: (user as IDoctor).doctorId,
                 email:user.email,

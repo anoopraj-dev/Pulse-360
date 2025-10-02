@@ -6,6 +6,7 @@ import Signup from "./pages/Signup"
 import VerifyEmail from "./pages/VerifyEmail"
 import PatientProfile from "./pages/patient/PatientProfile" 
 import Layout from "./components/Layout"
+import DoctorProfile from "./pages/doctor/DoctorProfile"
 
 const App = () =>{
 
@@ -17,11 +18,12 @@ const App = () =>{
       </div>
       <div>
         <Routes>
-          <Route path="/" element = {<Layout><Home/> </Layout>} />
+          <Route path="/" element = {<Home/>} />
           <Route path="/signin" element= {<SignIn/>} />
           <Route path="/signup" element= {<Signup/>} />
           <Route path= "/verify-email" element={<VerifyEmail/>} />
           <Route path="/patient/profile" element={<Layout><PatientProfile/></Layout>} />
+          <Route path="/doctor/profile" element={<Layout><DoctorProfile/></Layout>} />
         </Routes>
       </div>
     </Router>
