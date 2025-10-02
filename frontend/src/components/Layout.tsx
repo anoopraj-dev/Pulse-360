@@ -9,12 +9,11 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen">
-      {/* Fixed Sidebar */}
-      <div className="w-64 fixed h-screen">
+   
+        <div className="w-64 fixed h-screen">
         <Sidebar />
       </div>
-
-      {/* Main content + Navbar +*/}
+ 
       <div className="flex-1 ml-64 flex flex-col overflow-auto">
         <main className="">
           {children}

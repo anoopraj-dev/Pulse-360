@@ -1,9 +1,10 @@
+
 import { useEffect, useState } from "react";
 import Headings from "../../components/Headings";
 import { api } from "../../api/api";
-import InfoCards from "../../components/InfoCards";
+import DoctorInfo from "../../components/DoctotInfo";
 
-interface Patient {
+interface Doctor {
     name: string;
     email: string;
     createdAt: string;
@@ -14,12 +15,12 @@ interface Patient {
 
 }
 
-const PatientProfile = () => {
-    const [user, setUser] = useState<Patient | null>(null);
+const DoctorProfile = () => {
+    const [user, setUser] = useState<Doctor | null>(null);
 
     const fetchUser = async () => {
         try {
-            const { data } = await api.get('/api/patient/profile');
+            const { data } = await api.get('/api/doctor/profile');
             setUser(data.user);
         } catch (error) {
             console.error(error);
@@ -54,11 +55,11 @@ const PatientProfile = () => {
 
     return (
         <div className="flex flex-col items-center my-18 px-48">
-            <Headings text="Keep your profile up to date " className="my-8 text-center" />
+            <Headings text="See whats on your calendar" className="my-8 text-center" />
             <div>
 
                 <div>
-                    <InfoCards data={userData} />
+                    <DoctorInfo data={userData}/>
                 </div>
 
             </div>
@@ -66,4 +67,4 @@ const PatientProfile = () => {
     )
 }
 
-export default PatientProfile;
+export default DoctorProfile;

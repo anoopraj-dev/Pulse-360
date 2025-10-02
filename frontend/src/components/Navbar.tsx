@@ -4,13 +4,9 @@ const Navbar = () => {
     <nav className="bg-white  fixed w-full">
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-16">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
           <div className="text-xl font-bold text-[#0096C7]">PULSE 360</div>
-
-          {/* Desktop Menu */}
           <ul className="flex space-x-6">
             <Link to ='/'>
-          
             <li className="hover:text-[#0096C7] cursor-pointer">Home</li>
               </Link>
             <li className="hover:text-[#0096C7] cursor-pointer">About Us</li>

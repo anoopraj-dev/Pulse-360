@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useEffect, useState} from "react";
 import Headings from "./Headings";
 import Inputs from "./Inputs";
 import PrimaryButton from "./PrimaryButton";
@@ -6,7 +6,6 @@ import SliderToggle from "./SliderToggle";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import { useModal } from "../contexts/ModalContext";
-
 
 const AuthCard = () => {
     const [isDoctor, setIsDoctor] = useState(false)
@@ -18,6 +17,7 @@ const AuthCard = () => {
     const [confirmPassword,setConfrimPassword] = useState('');
     const isSignup = location.pathname==='/signup';
     const {openModal} = useModal();
+
 
     const handleSignup = async () => {
         try{
@@ -56,12 +56,12 @@ const AuthCard = () => {
             });
 
             if(!data.success) {
-                console.log(data.message);
                 openModal(data.message);
             }else{
-                console.log(data.message);
-                openModal(data.message);
-                navigate('/patient/profile');
+                openModal(data.message); 
+                if(role==='doctor') navigate('/doctor/profile');
+                else if(role === 'patient')navigate('/patient/profile');
+                
             }
 
 
@@ -71,6 +71,10 @@ const AuthCard = () => {
             openModal(message)
         }
     }
+
+    useEffect(()=>{
+        
+    })
 
 
     return (

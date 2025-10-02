@@ -5,7 +5,7 @@ const Sidebar = () => {
     <div className="h-screen w-64 bg-[#0096C7] text-gray-100 flex flex-col mt-12">
       <nav className="flex-1">
         <div className='flex p-6'>
-            <img src="/Bruce.jpg" alt="" className='rounded-full w-42 h-42 object-cover '/>
+            <img src="/profile.png" alt="" className='rounded-full w-42 h-42 object-cover '/>
         </div>
         <ul className="space-y-3 gap-3">
           <li className="flex items-center gap-3 p-2 hover:bg-white hover:text-[#162C55] cursor-pointer">
